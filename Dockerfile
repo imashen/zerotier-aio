@@ -42,6 +42,10 @@ RUN mkdir -p binaries && \
     cd .. && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
+# Clone zerotier-world-generator
+RUN mkdir -p /var/lib/zerotier-one && \
+    cd /var/lib/zerotier-one && \
+    git clone https://github.com/imashen/zerotier-world-generator.git
 
 # START RUNNER
 FROM debian:bullseye-slim AS runner
@@ -58,14 +62,12 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=argong /buildsrc/binaries/* /usr/local/bin/
+
+COPY --from=argong /var/lib/zerotier-one/zerotier-world-generator/ /var/lib/zerotier-one/zerotier-world-generator/
+
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
-
-# Clone zerotier-world-generator
-RUN mkdir -p /var/lib/zerotier-one && \
-    cd /var/lib/zerotier-one && \
-    git clone https://github.com/imashen/zerotier-world-generator.git
 
 COPY world-generator.sh /usr/local/bin/world-generator
 RUN chmod +x /usr/local/bin/world-generator

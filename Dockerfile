@@ -62,6 +62,9 @@ COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
 
+COPY world-generator.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/world-generator.sh
+
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh
 

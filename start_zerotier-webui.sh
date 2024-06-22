@@ -16,7 +16,7 @@ if [ -z $MYADDR ]; then
 fi
 
 MYDOMAIN=${MYDOMAIN:-zerotier-webui.docker.test}   # Used for minica
-zerotier-webui_PASSWD=${zerotier-webui_PASSWD:-password}   # Used for argon2g
+ZEROTIER-WEBUI_PASSWD=${ZEROTIER-WEBUI_PASSWD:-password}   # Used for argon2g
 MYADDR=${MYADDR}
 HTTP_ALL_INTERFACES=${HTTP_ALL_INTERFACES}
 HTTP_PORT=${HTTP_PORT:-3000}
@@ -66,5 +66,5 @@ fi
 chown -R zerotier-one:zerotier-one /opt/imashen/zerotier-webui
 chmod 0755 /opt/imashen/zerotier-webui/zerotier-webui
 
-unset zerotier-webui_PASSWD
+unset ZEROTIER-WEBUI_PASSWD
 gosu zerotier-one:zerotier-one /opt/imashen/zerotier-webui/zerotier-webui

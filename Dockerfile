@@ -48,22 +48,22 @@ FROM debian:bullseye-slim AS runner
 RUN apt update -y && \
     apt install -y --no-install-recommends \
     curl gnupg2 ca-certificates unzip supervisor net-tools procps && \
-    groupadd -g 1000 zerotier && \
-    useradd -u 1000 -g 1000 -m -s /bin/bash zerotier && \
+    groupadd -g 2222 zerotier-one && \
+    useradd -u 2222 -g 2222 zerotier-one && \
     curl -sL https://install.zerotier.com | bash && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
-
-RUN unzip ./artifact.zip && \
-    rm -f ./artifact.zip && \
-    chown -R zerotier:zerotier /opt/imashen/zerotier-webui
+RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
+
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
+
+
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh

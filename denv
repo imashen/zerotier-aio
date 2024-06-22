@@ -1,0 +1,4 @@
+NODE_ENV=production
+HTTPS_PORT=3443
+ZEROTIER-WEBUI_PASSWD=password
+MYDOMAIN=zerotier-webui.docker.test

@@ -1,0 +1,94 @@
+# 使用 Debian Bullseye 作为基础镜像
+FROM debian:bullseye-slim AS builder
+
+# 设置 Node.js 和 Go 的版本
+ENV NODEJS_MAJOR=20
+ENV GO_VERSION=1.18
+
+ARG DEBIAN_FRONTEND=noninteractive
+LABEL MAINTAINER="Hutu Tech | imashen"
+LABEL Description="ZEROTIER ONE + ZEROTIER WEB UI"
+
+ADD VERSION .
+
+# BUILD zerotier-webui IN FIRST STAGE
+WORKDIR /build
+RUN apt update -y && \
+    apt install curl gnupg2 ca-certificates zip unzip build-essential git --no-install-recommends -y && \
+    curl -sL -o node_inst.sh https://deb.nodesource.com/setup_${NODEJS_MAJOR}.x && \
+    bash node_inst.sh && \
+    apt install -y nodejs --no-install-recommends && \
+    rm -f node_inst.sh && \
+    git clone https://github.com/imashen/zerotier-webui && \
+    cd zerotier-webui/src && \
+    npm install && \
+    npm run build && \
+    zip -r /build/artifact.zip dist node_modules views public etc
+
+# BUILD GO UTILS
+FROM golang:${GO_VERSION}-bullseye AS argong
+WORKDIR /buildsrc
+COPY plugins/argon2g /buildsrc/argon2g
+COPY plugins/fileserv /buildsrc/fileserv
+ENV CGO_ENABLED=0
+RUN mkdir -p binaries && \
+    cd argon2g && \
+    go mod download && \
+    go build -ldflags='-s -w' -trimpath -o ../binaries/argon2g && \
+    cd .. && \
+    git clone https://github.com/jsha/minica && \
+    cd minica && \
+    go mod download && \
+    go build -ldflags='-s -w' -trimpath -o ../binaries/minica && \
+    cd .. && \
+    git clone https://github.com/tianon/gosu && \
+    cd gosu && \
+    go mod download && \
+    go build -o ../binaries/gosu -ldflags='-s -w' -trimpath && \
+    cd .. && \
+    cd fileserv && \
+    go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
+
+# START RUNNER
+FROM debian:bullseye-slim AS runner
+RUN apt update -y && \
+    apt install curl gnupg2 ca-certificates unzip supervisor net-tools procps --no-install-recommends -y && \
+    groupadd -g 2222 zerotier-one && \
+    useradd -u 2222 -g 2222 zerotier-one && \
+    curl -sL -o ztone.sh https://install.zerotier.com && \
+    bash ztone.sh && \
+    rm -f ztone.sh && \
+    apt clean -y && \
+    rm -rf /var/lib/zerotier-one && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/imashen/zerotier-webui
+COPY --from=builder /build/artifact.zip .
+RUN unzip ./artifact.zip && \
+    rm -f ./artifact.zip
+
+COPY --from=argong /buildsrc/binaries/gosu /bin/gosu
+COPY --from=argong /buildsrc/binaries/minica /usr/local/bin/minica
+COPY --from=argong /buildsrc/binaries/argon2g /usr/local/bin/argon2g
+COPY --from=argong /buildsrc/binaries/fileserv /usr/local/bin/gfileserv
+
+COPY start_zerotierone.sh /start_zerotierone.sh
+COPY start_zerotier-webui.sh /start_zerotier-webui.sh
+COPY supervisord.conf /etc/supervisord.conf
+
+RUN chmod 0755 /bin/gosu && \
+    chmod 0755 /usr/local/bin/minica && \
+    chmod 0755 /usr/local/bin/argon2g && \
+    chmod 0755 /usr/local/bin/gfileserv && \
+    chmod 0755 /start_*.sh
+
+EXPOSE 3000/tcp
+EXPOSE 3180/tcp
+EXPOSE 8000/tcp
+EXPOSE 3443/tcp
+EXPOSE 9993/udp
+
+WORKDIR /
+VOLUME ["/opt/imashen/zerotier-webui/etc"]
+VOLUME [ "/var/lib/zerotier-one" ]
+ENTRYPOINT [ "/usr/bin/supervisord" ]

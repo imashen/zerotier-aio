@@ -1,6 +1,6 @@
 module argon2g
 
-go 1.18
+go 1.22
 
 require golang.org/x/crypto v0.24.0
 

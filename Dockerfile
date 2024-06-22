@@ -62,7 +62,7 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-COPY --from=builder /var/lib/zerotier-one/zerotier-world-generator/ /var/lib/zerotier-one/zerotier-world-generator/
+COPY --from=builder /var/lib/zerotier-one/zerotier-world-generator /var/lib/zerotier-one/zerotier-world-generator
 
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh

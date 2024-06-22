@@ -1,7 +1,6 @@
 FROM debian:bullseye-slim AS builder
 
 ENV NODEJS_MAJOR=20
-ARG GO_VERSION=1.22
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL MAINTAINER="Hutu Tech | imashen"
@@ -22,7 +21,7 @@ RUN apt update -y && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # BUILD GO UTILS
-FROM golang:${GO_VERSION}-bullseye AS argong
+FROM golang:1.22-bullseye AS argong
 WORKDIR /buildsrc
 COPY plugins/argon2g /buildsrc/argon2g
 COPY plugins/fileserv /buildsrc/fileserv

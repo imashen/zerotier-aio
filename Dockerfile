@@ -19,9 +19,6 @@ RUN apt update -y && \
     npm run build && \
     zip -r /build/artifact.zip dist node_modules views public etc && \
     apt clean && rm -rf /var/lib/apt/lists/*
-# Clone zerotier-world-generator
-RUN cd /build && \
-    git clone https://github.com/imashen/zerotier-world-generator.git
 
 # BUILD GO UTILS
 FROM golang:1.22-bullseye AS utilsbuilder
@@ -61,13 +58,9 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-COPY --from=builder /build/zerotier-world-generator ./zerotier-world-generator
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
-
-COPY world-generator.sh /usr/local/bin/world-generator
-RUN chmod +x /usr/local/bin/world-generator
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh

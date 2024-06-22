@@ -61,7 +61,7 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-COPY --from=builder /builder/zerotier-world-generator ./zerotier-world-generator
+COPY --from=builder /build/zerotier-world-generator ./zerotier-world-generator
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf

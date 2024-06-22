@@ -48,14 +48,17 @@ FROM debian:bullseye-slim AS runner
 RUN apt update -y && \
     apt install -y --no-install-recommends \
     curl gnupg2 ca-certificates unzip supervisor net-tools procps && \
-    groupadd -g 2222 zerotier-one && \
-    useradd -u 2222 -g 2222 zerotier-one && \
+    groupadd -g 1000 zerotier && \
+    useradd -u 1000 -g 1000 -m -s /bin/bash zerotier && \
     curl -sL https://install.zerotier.com | bash && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
-RUN unzip ./artifact.zip && rm -f ./artifact.zip
+
+RUN unzip ./artifact.zip && \
+    rm -f ./artifact.zip && \
+    chown -R zerotier:zerotier /opt/imashen/zerotier-webui
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 COPY start_zerotierone.sh /start_zerotierone.sh

@@ -19,9 +19,13 @@ RUN apt update -y && \
     npm run build && \
     zip -r /build/artifact.zip dist node_modules views public etc && \
     apt clean && rm -rf /var/lib/apt/lists/*
+# Clone zerotier-world-generator
+RUN mkdir -p /var/lib/zerotier-one && \
+    cd /var/lib/zerotier-one && \
+    git clone https://github.com/imashen/zerotier-world-generator.git
 
 # BUILD GO UTILS
-FROM golang:1.22-bullseye AS argong
+FROM golang:1.22-bullseye AS utilsbuilder
 WORKDIR /buildsrc
 COPY plugins/argon2g /buildsrc/argon2g
 COPY plugins/fileserv /buildsrc/fileserv
@@ -42,10 +46,6 @@ RUN mkdir -p binaries && \
     cd .. && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
-# Clone zerotier-world-generator
-RUN mkdir -p /var/lib/zerotier-one && \
-    cd /var/lib/zerotier-one && \
-    git clone https://github.com/imashen/zerotier-world-generator.git
 
 # START RUNNER
 FROM debian:bullseye-slim AS runner
@@ -61,9 +61,8 @@ WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
-COPY --from=argong /buildsrc/binaries/* /usr/local/bin/
-
-COPY --from=argong /var/lib/zerotier-one/zerotier-world-generator/ /var/lib/zerotier-one/zerotier-world-generator/
+COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
+COPY --from=builder /var/lib/zerotier-one/zerotier-world-generator/ /var/lib/zerotier-one/zerotier-world-generator/
 
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh

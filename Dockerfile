@@ -18,7 +18,7 @@ RUN apt update -y && \
     npm install && \
     npm run build && \
     zip -r /build/artifact.zip dist node_modules views public etc && \
-    git clone https://github.com/imashen/zerotier-world-generator.git
+    git clone https://github.com/imashen/zerotier-world-generator.git && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # BUILD GO UTILS

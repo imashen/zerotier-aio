@@ -16,7 +16,7 @@ if [ -z $MYADDR ]; then
 fi
 
 MYDOMAIN=${MYDOMAIN:-zerotier-webui.docker.test}   # Used for minica
-ZEROTIER-WEBUI_PASSWD=${ZEROTIER-WEBUI_PASSWD:-password}   # Used for argon2g
+ZEROTIER_WEBUI_PASSWD=${ZEROTIER_WEBUI_PASSWD:-password}   # Used for argon2g
 MYADDR=${MYADDR}
 HTTP_ALL_INTERFACES=${HTTP_ALL_INTERFACES}
 HTTP_PORT=${HTTP_PORT:-3000}
@@ -26,7 +26,7 @@ while [ ! -f /var/lib/zerotier-one/authtoken.secret ]; do
     echo "ZT1 AuthToken is not found... Wait for ZT1 to start..."
     sleep 2
 done
-chown zerotier-one.zerotier-one /var/lib/zerotier-one/authtoken.secret
+chown zerotier-one:zerotier-one /var/lib/zerotier-one/authtoken.secret
 chmod 640 /var/lib/zerotier-one/authtoken.secret
 
 cd /opt/imashen/zerotier-webui
@@ -64,7 +64,7 @@ if [ ! -f /opt/imashen/zerotier-webui/etc/tls/fullchain.pem ] || [ ! -f /opt/ima
 fi
 
 chown -R zerotier-one:zerotier-one /opt/imashen/zerotier-webui
-chmod 0755 /opt/imashen/zerotier-webui/zerotier-webui
+chmod 0755 /opt/imashen/zerotier-webui/dist/index.js
 
-unset ZEROTIER-WEBUI_PASSWD
-gosu zerotier-one:zerotier-one /opt/imashen/zerotier-webui/zerotier-webui
+unset ZEROTIER_WEBUI_PASSWD
+gosu zerotier-one:zerotier-one node /opt/imashen/zerotier-webui/dist/index.js

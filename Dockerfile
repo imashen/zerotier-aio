@@ -62,8 +62,13 @@ COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
 
+# Clone zerotier-world-generator
+RUN mkdir -p /var/lib/zerotier-one && \
+    cd /var/lib/zerotier-one && \
+    git clone https://github.com/imashen/zerotier-world-generator.git
+
 COPY world-generator.sh /usr/local/bin/world-generator
-RUN chmod +x /usr/local/bin/world-generator.sh
+RUN chmod +x /usr/local/bin/world-generator
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh

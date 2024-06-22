@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim AS builder
 
 ENV NODEJS_MAJOR=20
-ENV GO_VERSION=1.22
+ARG GO_VERSION=1.22
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL MAINTAINER="Hutu Tech | imashen"

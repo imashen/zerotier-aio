@@ -67,4 +67,4 @@ chown -R zerotier-one:zerotier-one /opt/imashen/zerotier-webui
 chmod 0755 /opt/imashen/zerotier-webui/webui
 
 unset ZEROTIER_WEBUI_PASSWD
-gosu zerotier-one:zerotier-one webui
+gosu zerotier-one:zerotier-one /opt/imashen/zerotier-webui/webui

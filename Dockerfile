@@ -15,9 +15,10 @@ RUN apt update -y && \
     apt install -y --no-install-recommends nodejs && \
     git clone https://github.com/imashen/zerotier-webui && \
     cd zerotier-webui/src && \
+    npm install -g node-gyp @yao-pkg/pkg && \
     npm install && \
     npm run build && \
-    zip -r /build/artifact.zip dist node_modules views public etc && \
+    zip -r /build/artifact.zip webui node_modules/argon2/build/Release && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # BUILD GO UTILS

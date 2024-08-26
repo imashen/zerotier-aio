@@ -62,17 +62,19 @@ COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
+COPY gen_moon.sh /gen_moon.sh
 COPY supervisord.conf /etc/supervisord.conf
 
 
 
 RUN chmod 0755 /usr/local/bin/* && \
-    chmod 0755 /start_*.sh
+    chmod 0755 /start_*.sh && \
+    chmod 0755 /gen_*.sh
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
 WORKDIR /
 
-VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one"]
+VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
 
 ENTRYPOINT ["/usr/bin/supervisord"]

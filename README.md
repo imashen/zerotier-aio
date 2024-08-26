@@ -33,3 +33,7 @@ Additional environment variables used in this Docker image:
 This image exposes an http server at port `3180`, so you could save a file in `/myfs/` to serve it. For example, you could use this to build your own root server and distribute a planet file.
 
 > Please note that once the `HTTPS_PORT` is set, the `HTTP_PORT` will no longer be accessible.
+
+## More Func
+In addition to this, you can use the `docker exec -it zerotier-server /bin/bash` to enter the container
+and then execute `./gen/moon.sh` or `./gen/planet.sh` to quickly and easily make your server a moon or planet server.

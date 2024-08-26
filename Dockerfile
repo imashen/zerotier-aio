@@ -69,7 +69,7 @@ COPY supervisord.conf /etc/supervisord.conf
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh && \
-    chmod -R 0755 gen/
+    chmod -R 0755 /gen
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 

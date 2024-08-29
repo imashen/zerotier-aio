@@ -10,7 +10,7 @@ LABEL Description="ZEROTIER ONE + ZEROTIER WEB UI"
 WORKDIR /build
 RUN apt update -y && \
     apt install -y --no-install-recommends \
-    curl gnupg2 ca-certificates zip unzip build-essential git gcc make && \
+    curl gnupg2 ca-certificates zip unzip build-essential git && \
     curl -sL https://deb.nodesource.com/setup_${NODEJS_MAJOR}.x | bash - && \
     apt install -y --no-install-recommends nodejs && \
     git clone https://github.com/imashen/zerotier-webui && \
@@ -61,10 +61,10 @@ RUN unzip ./artifact.zip && rm -f ./artifact.zip
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 
 WORKDIR /var/lib/zerotier-one
-COPY config ./
+COPY config ./config
 
-RUN chmod -R 0755 config && \
-    chown -R zerotier-one:zerotier-one config
+RUN chmod -R 0755 /var/lib/zerotier-one/config && \
+    chown -R zerotier-one:zerotier-one /var/lib/zerotier-one/config
 
 WORKDIR /
 COPY gen/* .

@@ -61,7 +61,7 @@ RUN unzip ./artifact.zip && rm -f ./artifact.zip
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 
 WORKDIR /var/lib/zerotier-one
-COPY config .
+COPY config ./
 
 RUN chmod -R 0755 config && \
     chown -R zerotier-one:zerotier-one config
@@ -84,7 +84,6 @@ RUN chmod 0755 /usr/local/bin/* && \
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
-WORKDIR /var/lib/zerotier-one
 
 
 VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]

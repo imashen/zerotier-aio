@@ -24,6 +24,7 @@ RUN apt update -y && \
 # Build BIN
 WORKDIR /generator
 COPY generator/ .
+RUN chmod 0755 attic/world/build.sh
 RUN cd attic/world && \
     ./build.sh
 

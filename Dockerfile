@@ -86,7 +86,19 @@ RUN chmod 0755 /usr/local/bin/* && \
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
-WORKDIR /
+WORKDIR /var/lib/zerotier-one
+
+RUN mkdir -p /var/lib/zerotier-one && \
+    chown 2222:2222 /var/lib/zerotier-one && \
+    chmod 0755 /var/lib/zerotier-one
+
+RUN mkdir -p /opt/imashen/zerotier-webui/etc && \
+    chown 2222:2222 /opt/imashen/zerotier-webui/etc && \
+    chmod 0755 /opt/imashen/zerotier-webui/etc
+
+RUN mkdir -p /var/log/zerotier-server && \
+    chown 2222:2222 /var/log/zerotier-server && \
+    chmod 0755 /var/log/zerotier-server
 
 VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
 

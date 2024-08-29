@@ -67,10 +67,10 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-COPY config/ /var/lib/zerotier-one/config
+COPY config /var/lib/zerotier-one/config
 COPY --from=builder /generator/attic/world/bin/* /var/lib/zerotier-one/config
-RUN ln -s /var/lib/zerotier-one/config/mkplanet /usr/local/bin/mkplanet && \
-    ln -s /var/lib/zerotier-one/config/mkmoon /usr/local/bin/mkmoon
+RUN ln -sf /var/lib/zerotier-one/config/mkplanet /usr/local/bin/mkplanet && \
+    ln -sf /var/lib/zerotier-one/config/mkmoon /usr/local/bin/mkmoon
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf

@@ -33,14 +33,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image (amd64)
+    - name: Build Docker image (amd64)
       uses: docker/build-push-action@v6
       with:
         context: .
-        push: true
+        load: true
         tags: |
           imashen/zerotier-server:amd64
         platforms: linux/amd64
+
+    - name: Push Docker image (amd64)
+      run: |
+        docker push imashen/zerotier-server:amd64
 
   build-and-push-arm64:
     runs-on: ubuntu-latest
@@ -63,14 +67,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image (arm64)
+    - name: Build Docker image (arm64)
       uses: docker/build-push-action@v6
       with:
         context: .
-        push: true
+        load: true
         tags: |
           imashen/zerotier-server:arm64
         platforms: linux/arm64
+
+    - name: Push Docker image (arm64)
+      run: |
+        docker push imashen/zerotier-server:arm64
 
   create-manifest:
     needs: [build-and-push-amd64, build-and-push-arm64]

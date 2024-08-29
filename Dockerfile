@@ -44,10 +44,11 @@ RUN mkdir -p binaries && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
 
+WORKDIR /generator
+COPY generator/ .
+RUN chmod +x attic/world/build.sh && \
+    attic/world/build.sh
 
-COPY generator ./generator
-RUN cd generator/attic/world && \
-    build.sh
 
 # START RUNNER
 FROM debian:bullseye-slim AS runner

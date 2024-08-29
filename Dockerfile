@@ -10,7 +10,7 @@ LABEL Description="ZEROTIER ONE + ZEROTIER WEB UI"
 WORKDIR /build
 RUN apt update -y && \
     apt install -y --no-install-recommends \
-    curl gnupg2 ca-certificates zip unzip build-essential git && \
+    curl gnupg2 ca-certificates zip unzip build-essential git gcc make && \
     curl -sL https://deb.nodesource.com/setup_${NODEJS_MAJOR}.x | bash - && \
     apt install -y --no-install-recommends nodejs && \
     git clone https://github.com/imashen/zerotier-webui && \
@@ -44,11 +44,15 @@ RUN mkdir -p binaries && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
 
+WORKDIR /generator
+COPY generator/* .
+RUN ./attic/world/build.sh
+
 # START RUNNER
 FROM debian:bullseye-slim AS runner
 RUN apt update -y && \
     apt install -y --no-install-recommends \
-    curl gnupg2 ca-certificates unzip supervisor net-tools procps openssl jq && \
+    curl gnupg2 ca-certificates unzip supervisor net-tools procps && \
     groupadd -g 2222 zerotier-one && \
     useradd -u 2222 -g 2222 zerotier-one && \
     curl -sL https://install.zerotier.com | bash && \
@@ -59,6 +63,7 @@ WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
+COPY --from=builder /generator/attic/world/bin/* /usr/local/bin/
 
 WORKDIR /var/lib/zerotier-one
 COPY config ./config
@@ -66,21 +71,12 @@ COPY config ./config
 RUN chmod -R 0755 /var/lib/zerotier-one/config && \
     chown -R zerotier-one:zerotier-one /var/lib/zerotier-one/config
 
-WORKDIR /
-COPY gen/* .
-
-# Create symlinks
-RUN ln -s /mkplanet /var/lib/zerotier-one/config/mkplanet && \
-    ln -s /mkmoon /var/lib/zerotier-one/config/mkmoon 
-
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
 
 RUN chmod 0755 /usr/local/bin/* && \
-    chmod 0755 /start_*.sh && \
-    chmod 0755 /mkmoon && \
-    chmod 0755 /mkplanet
+    chmod 0755 /start_*.sh
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 

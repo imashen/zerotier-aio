@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd /var/lib/zerotier-one
 # Default ZeroTier moon port
 moon_port=9993
 

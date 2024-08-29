@@ -20,7 +20,7 @@ void printHelp() {
     printf("  -h, --help          Display this help message\n");
     printf("  -j2b, --json2bin      Convert from JSON file to planet\n");
     printf("  -b2j, --bin2json      Convert from planet to JSON format\n");
-    printf("  -reset              Reset planet from origin-planet.json\n");
+    printf("  -r, --reset              Reset planet from origin-planet.json\n");
 }
 
 int jsonToBinary() {
@@ -179,7 +179,7 @@ int main(int argc, char** argv) {
         } else if (arg == "-b2j" || arg == "--bin2json") {
             bin2json = true;
             hasOption = true;
-        } else if (arg == "-reset") {
+        } else if (arg == "-r" || arg == "--reset") {
             reset = true;
             hasOption = true;
         }

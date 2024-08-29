@@ -8,6 +8,7 @@ if [ ! -f /var/lib/zerotier-one/identity.secret ] ; then
     usermod -aG zerotier-one root
     mkdir -p /var/lib/zerotier-one
     rm -rf /var/lib/zerotier-one/*
+    cp -r /initfiles/* /var/lib/zerotier-one/
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-cli
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-idtool
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-one

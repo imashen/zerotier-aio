@@ -1,5 +1,5 @@
+# MAIN BUILDER
 FROM debian:bullseye-slim AS builder
-
 ENV NODEJS_MAJOR=20
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,7 +10,7 @@ LABEL Description="ZEROTIER ONE + ZEROTIER WEB UI"
 WORKDIR /build
 RUN apt update -y && \
     apt install -y --no-install-recommends \
-    curl gnupg2 ca-certificates zip unzip build-essential git && \
+    curl gnupg2 ca-certificates zip unzip build-essential git gcc make && \
     curl -sL https://deb.nodesource.com/setup_${NODEJS_MAJOR}.x | bash - && \
     apt install -y --no-install-recommends nodejs && \
     git clone https://github.com/imashen/zerotier-webui && \
@@ -20,6 +20,13 @@ RUN apt update -y && \
     npm run build && \
     zip -r /build/artifact.zip webui node_modules/argon2/build/Release && \
     apt clean && rm -rf /var/lib/apt/lists/*
+
+# Build BIN
+WORKDIR /generator
+COPY generator/ .
+RUN cd attic/world && \
+    ./build.sh
+
 
 # BUILD GO UTILS
 FROM golang:1.22-bullseye AS utilsbuilder
@@ -59,17 +66,19 @@ COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-
+COPY config/ /var/lib/zerotier-one/config
+COPY --from=builder /generator/attic/world/bin/* /var/lib/zerotier-one/config
+RUN ln -s /var/lib/zerotier-one/config/mkplanet /usr/local/bin/mkplanet && \
+    ln -s /var/lib/zerotier-one/config/mkmoon /usr/local/bin/mkmoon
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh
-COPY gen /gen
 COPY supervisord.conf /etc/supervisord.conf
 
 
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh && \
-    chmod -R 0755 /gen
+    chmod -R 0755 /var/lib/zerotier-one/config
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 

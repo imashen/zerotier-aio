@@ -44,9 +44,10 @@ RUN mkdir -p binaries && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
 
-WORKDIR /generator
-COPY generator/* .
-RUN ./attic/world/build.sh
+
+COPY generator ./generator
+RUN cd generator/attic/world && \
+    build.sh
 
 # START RUNNER
 FROM debian:bullseye-slim AS runner
@@ -63,7 +64,7 @@ WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
-COPY --from=builder /generator/attic/world/bin/* /usr/local/bin/
+COPY --from=builder /buildsrc/generator/attic/world/bin/* /usr/local/bin/
 
 WORKDIR /var/lib/zerotier-one
 COPY config ./config

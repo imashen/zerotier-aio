@@ -39,7 +39,7 @@ jobs:
         context: .
         push: true
         tags: |
-          imashen/zerotier-server:amd64-temp
+          imashen/zerotier-server:amd64
         platforms: linux/amd64
 
   build-and-push-arm64:
@@ -69,7 +69,7 @@ jobs:
         context: .
         push: true
         tags: |
-          imashen/zerotier-server:arm64-temp
+          imashen/zerotier-server:arm64
         platforms: linux/arm64
 
   create-manifest:
@@ -86,6 +86,6 @@ jobs:
     - name: Create and push multi-arch manifest
       run: |
         docker manifest create imashen/zerotier-server:latest \
-          imashen/zerotier-server:amd64-temp \
-          imashen/zerotier-server:arm64-temp
+          imashen/zerotier-server:amd64 \
+          imashen/zerotier-server:arm64
         docker manifest push --purge imashen/zerotier-server:latest

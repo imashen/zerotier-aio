@@ -21,6 +21,12 @@ RUN apt update -y && \
     zip -r /build/artifact.zip webui node_modules/argon2/build/Release && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /generator
+COPY generator/ .
+RUN chmod 0755 attic/world/build.sh
+RUN cd attic/world && \
+    ./build.sh
+
 # BUILD GO UTILS
 FROM golang:1.22-bullseye AS utilsbuilder
 WORKDIR /buildsrc
@@ -44,12 +50,6 @@ RUN mkdir -p binaries && \
     cd fileserv && \
     go build -ldflags='-s -w' -trimpath -o ../binaries/fileserv main.go
 
-WORKDIR /generator
-COPY generator/ .
-RUN chmod 0755 attic/world/build.sh
-RUN cd attic/world && \
-    ./build.sh
-
 
 # START RUNNER
 FROM debian:bullseye-slim AS runner
@@ -65,6 +65,7 @@ RUN apt update -y && \
 WORKDIR /opt/imashen/zerotier-webui
 COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
+
 COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 COPY --from=builder /generator/attic/world/bin/* /usr/local/bin/
 

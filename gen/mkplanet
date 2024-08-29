@@ -1,0 +1,111 @@
+#!/bin/bash
+
+printHelp() {
+    echo "Usage: mkplanet [options]"
+    echo "Options:"
+    echo "  -h, --help          Display this help message"
+    echo "  -j2b, --json2bin    Convert from JSON file to planet"
+    echo "  -b2j, --bin2json    Convert from planet to JSON format"
+}
+
+jsonToBinary() {
+    # Check if planet file exists
+    if [ ! -f "planet" ]; then
+        # Check if origin-planet.json exists and copy it to planet.json
+        if [ -f "origin-planet.json" ]; then
+            cp "origin-planet.json" "planet.json"
+            echo "INFO: Copied origin-planet.json to planet.json"
+        else
+            echo "FATAL: origin-planet.json not found"
+            return 1
+        fi
+    fi
+
+    if [ ! -f "previous.c25519" ] || [ ! -f "current.c25519" ]; then
+        # Generate keys and save them
+        echo "Generating initial world keys..."
+        openssl genpkey -algorithm X25519 -out "previous.c25519"
+        cp "previous.c25519" "current.c25519"
+        echo "INFO: created initial world keys: previous.c25519 and current.c25519 (both initially the same)"
+    fi
+
+    # Ensure keys are valid
+    if [ ! -s "previous.c25519" ] || [ ! -s "current.c25519" ]; then
+        echo "FATAL: previous.c25519 or current.c25519 empty or invalid"
+        return 1
+    fi
+
+    # Create planet file from planet.json
+    if ! command -v zerotier-idtool &> /dev/null; then
+        echo "FATAL: zerotier-idtool not found"
+        return 1
+    fi
+
+    zerotier-idtool initmoon "identity.public" > "planet.json"
+
+    # Update planet.json with stableEndpoints
+    jq --argjson roots "$(jq '.roots' planet.json)" '
+        .roots = $roots
+    ' planet.json > "planet.tmp" && mv "planet.tmp" "planet"
+
+    echo "INFO: planet written with binary world data."
+}
+
+binaryToJson() {
+    if [ ! -f "planet" ]; then
+        echo "FATAL: planet file not found."
+        return 1
+    fi
+
+    # Read binary content
+    binContent=$(cat "planet")
+
+    # Use zerotier-idtool to convert binary to JSON
+    if ! command -v zerotier-idtool &> /dev/null; then
+        echo "FATAL: zerotier-idtool not found"
+        return 1
+    fi
+
+    zerotier-idtool showworld "planet" | jq '.' > "planet.json"
+    echo "JSON data successfully written to planet.json."
+}
+
+json2bin=false
+bin2json=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            printHelp
+            exit 0
+            ;;
+        -j2b|--json2bin)
+            json2bin=true
+            shift
+            ;;
+        -b2j|--bin2json)
+            bin2json=true
+            shift
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            printHelp
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$json2bin" = true ] && [ "$bin2json" = true ]; then
+    echo "Error: Cannot specify both JSON to binary and binary to JSON conversion options."
+    printHelp
+    exit 1
+fi
+
+if [ "$json2bin" = true ]; then
+    jsonToBinary
+elif [ "$bin2json" = true ]; then
+    binaryToJson
+else
+    printHelp
+fi

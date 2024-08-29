@@ -69,9 +69,11 @@ COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 
 # Copy the config directory to /var/lib/zerotier-one/config
 COPY config /var/lib/zerotier-one/config
-
 # Copy files from builder stage and place them in /var/lib/zerotier-one/config
 COPY --from=builder /generator/attic/world/bin/* /var/lib/zerotier-one/config/
+
+RUN chmod -R 0755 /var/lib/zerotier-one/config && \
+    chown -R zerotier-one:zerotier-one /var/lib/zerotier-one/config
 
 # Create symlinks
 RUN ln -s /var/lib/zerotier-one/config/mkplanet /usr/local/bin/mkplanet && \
@@ -82,13 +84,13 @@ COPY start_zerotier-webui.sh /start_zerotier-webui.sh
 COPY supervisord.conf /etc/supervisord.conf
 
 RUN chmod 0755 /usr/local/bin/* && \
-    chmod 0755 /start_*.sh && \
-    chmod -R 0755 /var/lib/zerotier-one/config
+    chmod 0755 /start_*.sh
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
 WORKDIR /var/lib/zerotier-one
 
+
 VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
 
-ENTRYPOINT ["/usr/local/bin/gosu", "2222", "/usr/bin/supervisord"]
+ENTRYPOINT ["/usr/bin/supervisord"]

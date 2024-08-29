@@ -89,6 +89,6 @@ EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
 WORKDIR /var/lib/zerotier-one
 
-# VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
+VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
 
 ENTRYPOINT ["/usr/local/bin/gosu", "2222", "/usr/bin/supervisord"]

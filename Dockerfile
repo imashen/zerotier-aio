@@ -70,10 +70,7 @@ COPY --from=utilsbuilder /buildsrc/binaries/* /usr/local/bin/
 COPY --from=builder /generator/attic/world/bin/* /usr/local/bin/
 
 WORKDIR /var/lib/zerotier-one
-COPY config ./config
-
-RUN chmod -R 0755 /var/lib/zerotier-one/config && \
-    chown -R zerotier-one:zerotier-one /var/lib/zerotier-one/config
+COPY config/origin-planet.json ./origin-planet.json
 
 COPY start_zerotierone.sh /start_zerotierone.sh
 COPY start_zerotier-webui.sh /start_zerotier-webui.sh

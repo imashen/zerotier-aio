@@ -20,6 +20,7 @@ void printHelp() {
     printf("  -h, --help          Display this help message\n");
     printf("  -j2b, --json2bin      Convert from JSON file to planet\n");
     printf("  -b2j, --bin2json      Convert from planet to JSON format\n");
+    printf("  -reset              Reset planet from origin-planet.json\n");
 }
 
 int jsonToBinary() {
@@ -139,8 +140,23 @@ void binaryToJson() {
     }
 }
 
+int resetPlanet() {
+    std::string originContent;
+    if (OSUtils::readFile("origin-planet.json", originContent)) {
+        if (OSUtils::writeFile("planet.json", originContent)) {
+            fprintf(stderr, "INFO: Copied origin-planet.json to planet.json\n");
+            return jsonToBinary();
+        } else {
+            fprintf(stderr, "FATAL: Failed to copy origin-planet.json to planet.json\n");
+            return 1;
+        }
+    } else {
+        fprintf(stderr, "FATAL: Failed to read origin-planet.json\n");
+        return 1;
+    }
+}
+
 int main(int argc, char** argv) {
-    // Change working directory to /var/lib/zerotier-one
     if (chdir("/var/lib/zerotier-one") != 0) {
         perror("Directory Error");
         return 1;
@@ -148,6 +164,7 @@ int main(int argc, char** argv) {
 
     bool json2bin = false;
     bool bin2json = false;
+    bool reset = false;
 
     bool hasOption = false;
 
@@ -161,6 +178,9 @@ int main(int argc, char** argv) {
             hasOption = true;
         } else if (arg == "-b2j" || arg == "--bin2json") {
             bin2json = true;
+            hasOption = true;
+        } else if (arg == "-reset") {
+            reset = true;
             hasOption = true;
         }
     }
@@ -180,7 +200,10 @@ int main(int argc, char** argv) {
         return jsonToBinary();
     } else if (bin2json) {
         binaryToJson();
+    } else if (reset) {
+        return resetPlanet();
     }
 
     return 0;
 }
+

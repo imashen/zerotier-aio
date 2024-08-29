@@ -11,6 +11,8 @@ if [ ! -f /var/lib/zerotier-one/identity.secret ] ; then
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-cli
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-idtool
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-one
+    ln -sf /var/lib/zerotier-one/config/mkmoon /usr/local/bin/mkmoon
+    ln -sf /var/lib/zerotier-one/config/mkplanet /usr/local/bin/mkplanet
     chown zerotier-one:zerotier-one /var/lib/zerotier-one    # zerotier-one user home
     #chown -R zerotier-one:zerotier-one /var/lib/zerotier-one  # zerotier-one will change this at runtime. 
 else

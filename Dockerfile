@@ -46,8 +46,9 @@ RUN mkdir -p binaries && \
 
 WORKDIR /generator
 COPY generator/ .
-RUN chmod +x attic/world/build.sh && \
-    attic/world/build.sh
+RUN chmod 0755 attic/world/build.sh
+RUN cd attic/world && \
+    ./build.sh
 
 
 # START RUNNER

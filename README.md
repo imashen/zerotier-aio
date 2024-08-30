@@ -127,6 +127,7 @@ Options:
 此时的planet文件分发到各个设备中，即可实现自建Moon
 为方便分发，详见[`文件服务器`](#fileserver "Go to definition")
 
-此外mkplanet工具自带了一键恢复planet功能，如果你的配置文件不幸损坏或者丢失官方文件，可通过 `mkplanet -r` 或 `mkplanet --reset` 重新生成官方planet文件
+此外mkplanet工具自带了一键恢复planet功能，如果你的配置文件不幸损坏或者丢失官方文件，
+可通过 `mkplanet -r` 或 `mkplanet --reset` 重新生成官方planet文件
 
 ![usage_mkplanet_reset](/doc/bash/usage_mkplanet_reset.png)

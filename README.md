@@ -5,6 +5,7 @@
 
 # Zerotier All in One
 
+[![Stargazers over time](https://starchart.cc/imashen/zerotier-aio.svg?variant=adaptive)](https://starchart.cc/imashen/zerotier-aio)
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
 ![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
 ![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)
@@ -22,6 +23,8 @@
 [`环境变量`](#env "Go to definition")
 [`文件服务器`](#fileserver "Go to definition")
 [`搭建Moon/Planet服务器`](#mkmoon "Go to definition")
+
+****
 
 ## <a id="usage">简易使用</a>
 
@@ -48,6 +51,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-logs](/doc/bash/files-logs.png)
 
+****
+
 ## <a id="env">环境变量</a>
 
 ### 必需环境变量
@@ -70,10 +75,13 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 > 请注意，为数据传输的安全起见 [`HTTPS_PORT`](#https_port "Go to definition") 默认在全网口监听，[`HTTP_PORT`](#http_port "Go to definition") 仅本地 `localhost/127.0.0.1` 监听。
 
+****
+
 ## <a id="fileserver">文件服务器</a>
 
 此镜像在端口 [`3180`](#usage "Go to definition") 上开放了一个HTTP服务器，因此您可以在 `/myfs/` 中保存文件以进行服务。例如，您可以使用此功能构建自己的根服务器并分发行星文件。
 
+****
 
 ## Moon/Planet便捷部署
 
@@ -83,6 +91,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 执行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition") 查看帮助
 
+****
 
 ### <a id="mkmoon">1.Moon服务器搭建|mkmoon</a>
 输入指令`mkmoon`获取帮助信息
@@ -103,6 +112,7 @@ Options:
 成功运行会得到下述效果:
 ![usage_mkmoon_out](/doc/bash/usage_mkmoon_out.png)
 
+****
 
 ### <a id="mkplanet">2.Planet服务器搭建|mkplanet</a>
 输入指令`mkplanet`获取帮助信息

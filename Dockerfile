@@ -12,9 +12,10 @@ RUN apt update -y && \
     apt install -y --no-install-recommends \
     curl gnupg2 ca-certificates zip unzip build-essential git gcc make && \
     curl -sL https://deb.nodesource.com/setup_${NODEJS_MAJOR}.x | bash - && \
-    apt install -y --no-install-recommends nodejs && \
-    git clone https://github.com/imashen/zerotier-webui && \
-    cd zerotier-webui/src && \
+    apt install -y --no-install-recommends nodejs
+COPY zerotier-webui .
+RUN chmod -R 0755 zerotier-webui
+RUN cd zerotier-webui/src && \
     npm install -g node-gyp @yao-pkg/pkg && \
     npm install && \
     npm run build && \

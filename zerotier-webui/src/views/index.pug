@@ -1,0 +1,19 @@
+//- This is the main page of the ZeroTier network controller UI
+
+extends controller_layout
+
+block content
+  h1!= title
+
+  h2
+    a(href='https://zerotier.com' target='_blank') ZeroTier 
+    | network controller UI by 
+    a(href='https://littlehutu.tech' target='_blank') Hutu Tech
+
+  if error
+     b #{error}
+  else
+    h4 This network controller has a ZeroTier address of <b>#{zt_status.address}</b>
+    h4 ZeroTier version <b>#{zt_status.version}</b>
+    h4
+      a(href='/controller/networks') List all networks on this network controller

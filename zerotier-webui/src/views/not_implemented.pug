@@ -1,0 +1,17 @@
+//- This file is part of the Network Layout Editor project,
+
+extends network_layout
+
+block net_content
+  - if (member !== undefined)
+    h4 for member
+      a(href='../' + member.address)  #{member.address}
+  h4 Editing of
+    b  #{title}
+    |  has not been implemented.
+
+  h4
+    | Note that you may be able to edit some properties on the 
+    strong
+      a(href='/controller/network/' + network.nwid + '#members') Members
+    |  page.

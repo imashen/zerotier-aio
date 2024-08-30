@@ -1,0 +1,17 @@
+//- var network_layout = require('./network_layout')
+
+extends network_layout
+
+block net_content
+  h4
+    | for member #{member.name} (#{member.address}) in network
+
+  each value, key in member
+    .row
+      .col-sm-2
+        a(href=('/controller/network/' + member.nwid + '/member/' + member.address + '/' + key)) #{key}:
+      .col-sm-10
+        +json_value(value)
+
+  a.btn.btn-default(href=('/controller/network/' + member.nwid + "#members") name='networks' role='button' style='margin-top: 10px;')
+    | Members

@@ -1,0 +1,23 @@
+//- This is the layout for the network pages
+
+extends controller_layout
+
+block content
+  if error
+     b #{error}
+  else
+    .row
+      .col-sm-10
+        block network_title
+          h2
+            | Network 
+            a(href='/controller/network/' + network.nwid) #{network.name}
+            |  (#{network.nwid}):
+        block title
+          if title
+            h3= title
+
+      .col-sm-2
+        h2.right
+          a.btn.btn-default(href=navigate.whence role='button') Back
+    block net_content

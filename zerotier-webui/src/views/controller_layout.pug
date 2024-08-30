@@ -1,0 +1,14 @@
+//- Extends the head_layout.pug
+extends head_layout
+
+block nav_items
+  +nav_item('controller_home', 'Home', '/controller')
+  +nav_item('users', 'Users', '/users')
+  +nav_item('networks', 'Networks', '/controller/networks')
+  +nav_item('add_network', 'Add network', '/controller/network/create')
+
+block body_content
+  .container(style='margin: 50px auto 20px')
+    .row
+      .col-sm-12
+        block content

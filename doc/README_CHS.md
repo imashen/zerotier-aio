@@ -1,3 +1,8 @@
+# README.md
+- ENG [English](doc/README_ENG.md)
+- CHS [简体中文](doc/README_CHS.md)
+- CHT [繁體中文](doc/README_CHT.md)
+
 # Zerotier All in One
 
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-server)

@@ -71,6 +71,7 @@ COPY --from=builder /generator/attic/world/bin/* /usr/local/bin/
 
 WORKDIR /initfiles
 COPY initfiles/origin-planet.json ./origin-planet.json
+COPY initfiles/README ./README
 
 WORKDIR /var/lib/zerotier-one
 COPY initfiles/origin-planet.json ./origin-planet.json

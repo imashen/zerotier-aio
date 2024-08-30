@@ -14,7 +14,7 @@
 ## <a id="usage">简易使用</a>
 
 ```
-docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
+docker run -d -p 9993:9993/udp -p 3443:3443 -p <a id="3180">3180:3180</a> \
     -v zerotier-one:/var/lib/zerotier-one \
     -v zerotier-webui:/opt/imashen/zerotier-webui/etc \
     -v zerotier-logs:/var/log/zerotier-server \
@@ -60,7 +60,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ## <a id="fileserver">文件服务器</a>
 
-此镜像在端口 [`3180`]("Go to definition") 上开放了一个HTTP服务器，因此您可以在 `/myfs/` 中保存文件以进行服务。例如，您可以使用此功能构建自己的根服务器并分发行星文件。
+此镜像在端口 [`3180`](#3180 "Go to definition") 上开放了一个HTTP服务器，因此您可以在 `/myfs/` 中保存文件以进行服务。例如，您可以使用此功能构建自己的根服务器并分发行星文件。
 
 
 ## Moon/Planet便捷部署

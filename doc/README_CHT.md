@@ -9,6 +9,13 @@
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
 ![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
 ![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)
+![GitHub stars](https://img.shields.io/github/stars/imashen/zerotier-aio?style=social)
+![GitHub forks](https://img.shields.io/github/forks/imashen/zerotier-aio?style=social)
+![Docker Pulls](https://img.shields.io/docker/pulls/imashen/zerotier-aio)
+![Docker Image Size](https://img.shields.io/docker/image-size/imashen/zerotier-aio/latest)
+![GitHub issues](https://img.shields.io/github/issues/imashen/zerotier-aio)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/imashen/zerotier-aio)
+![GitHub contributors](https://img.shields.io/github/contributors/imashen/zerotier-aio)
 
 快速导航：
 

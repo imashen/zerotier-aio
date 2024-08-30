@@ -1,7 +1,7 @@
 # README.md
-- ENG [English](doc/README_ENG.md)
-- CHS [简体中文](doc/README_CHS.md)
-- CHT [繁體中文](doc/README_CHT.md)
+- ENG [English](https://github.com/imashen/zerotier-aio/blob/main/doc/README_ENG.md)
+- CHS [简体中文](https://github.com/imashen/zerotier-aio/blob/main/doc/README_CHS.md)
+- CHT [繁體中文](https://github.com/imashen/zerotier-aio/blob/main/doc/README_CHT.md)
 
 # Zerotier All in One
 
@@ -38,15 +38,15 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 `/var/lib/zerotier-one` is used to store Zerotier's default runtime and configuration files.
 
-![files-zt1](/doc/bash/files-zt1.png)
+![files-zt1](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/files-zt1.png)
 
 `/opt/imashen/zerotier-webui/etc` is the file server and contains the certificates for the Web UI.
 
-![files-webui](/doc/bash/files-webui.png)
+![files-webui](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/files-webui.png)
 
 `/var/log/zerotier-aio` stores the log files.
 
-![files-logs](/doc/bash/files-logs.png)
+![files-logs](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/files-logs.png)
 
 ## <a id="env">Environment Variables</a>
 
@@ -78,14 +78,14 @@ This image opens an HTTP server on port [`3180`](#usage "Go to definition"), all
 
 You can enter the container using `docker exec -it zerotier-aio /bin/bash`.
 
-![exec_container](/doc/bash/exec_container.png)
+![exec_container](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/exec_container.png)
 
 Run [`mkmoon`](#mkmoon "Go to definition") or [`mkplanet`](#mkplanet "Go to definition") to view help.
 
 ### <a id="mkmoon">1. Setup Moon Server | mkmoon</a>
 Enter the command `mkmoon` to get help information.
 
-![usage_mkmoon](/doc/bash/usage_mkmoon.png)
+![usage_mkmoon](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkmoon.png)
 
 ```
 Usage: mkmoon [options]
@@ -99,12 +99,12 @@ Options:
 You must provide either an IPv4 or IPv6 address. Each parameter can be omitted. The default port is 9993.
 
 The following is an example of a successful operation:
-![usage_mkmoon_out](/doc/bash/usage_mkmoon_out.png)
+![usage_mkmoon_out](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkmoon_out.png)
 
 ### <a id="mkplanet">2. Setup Planet Server | mkplanet</a>
 Enter the command `mkplanet` to get help information.
 
-![usage_mkplanet](/doc/bash/usage_mkplanet.png)
+![usage_mkplanet](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkplanet.png)
 
 ```
 Usage: mkplanet [options]
@@ -117,18 +117,18 @@ Options:
 
 First, run `mkplanet -b2j` or `mkplanet --bin2json` to convert the official planet file to a JSON file for easy modification.
 
-![usage_mkplanet_b2j](/doc/bash/usage_mkplanet_b2j.png)
+![usage_mkplanet_b2j](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkplanet_b2j.png)
 
 Fill in your own Planet server information in the `planet.json` file following the specified structure. You can fill in up to four entries.
 
-![planet_json](/doc/bash/planet_json.png)
+![planet_json](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/planet_json.png)
 
 After configuring, run `mkplanet -j2b` or `mkplanet --json2bin` to repackage the JSON file into a planet file.
 
-![usage_mkplanet_j2b](/doc/bash/usage_mkplanet_j2b.png)
+![usage_mkplanet_j2b](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkplanet_j2b.png)
 
 Distribute this planet file to your devices to set up your own Moon server. For easier distribution, see [`File Server`](#fileserver "Go to definition").
 
 Additionally, the `mkplanet` tool includes a one-click reset feature. If your configuration file is corrupted or you lose the official file, </br>you can use `mkplanet -r` or `mkplanet --reset` to regenerate the official planet file.
 
-![usage_mkplanet_reset](/doc/bash/usage_mkplanet_reset.png)
+![usage_mkplanet_reset](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkplanet_reset.png)

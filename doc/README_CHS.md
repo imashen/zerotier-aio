@@ -75,7 +75,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 ### <a id="mkmoon">1.Moon服务器搭建|mkmoon</a>
 输入指令`mkmoon`获取帮助信息
 
-![usage_mkplanet](/doc/bash/usage_mkmoon.png)
+![usage_mkmoon](/doc/bash/usage_mkmoon.png)
 
 ```
 Usage: mkmoon [options]
@@ -89,7 +89,7 @@ Options:
 其中v4/v6地址必须填入一个 每个参数都可以缺省 Port默认为9993
 
 成功运行会得到下述效果:
-![usage_mkplanet](/doc/bash/usage_mkmoon_out.png)
+![usage_mkmoon_out](/doc/bash/usage_mkmoon_out.png)
 
 
 ### <a id="mkplanet">2.Planet服务器搭建|mkplanet</a>
@@ -107,10 +107,20 @@ Options:
 ```
 
 首先运行 `mkplanet -b2j` 或 `mkplanet --bin2json` 将官方自带的planet转义为json文件，方便修改
+
+![usage_mkplanet_b2j](/doc/bash/usage_mkplanet_b2j.png)
+
 在`planet.json`中按照固定结构填入你自己的Planet服务器信息，最多填入四个！！！
 
-![usage_mkplanet](/doc/bash/planet_json.png)
+![planet_json](/doc/bash/planet_json.png)
 
 配置完成后再次运行 `mkplanet -j2b` 或 `mkplanet --json2bin` 重新将json文件打包为planet
+
+![usage_mkplanet_j2b](/doc/bash/usage_mkplanet_j2b.png)
+
 此时的planet文件分发到各个设备中，即可实现自建Moon
 为方便分发，详见[`文件服务器`](#fileserver "Go to definition")
+
+此外mkplanet工具自带了一键恢复planet功能，如果你的配置文件不幸损坏或者丢失官方文件，可通过 `mkplanet -r` 或 `mkplanet --reset` 重新生成官方planet文件
+
+![usage_mkplanet_reset](/doc/bash/usage_mkplanet_reset.png)

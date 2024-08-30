@@ -62,7 +62,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | MYDOMAIN | 动态生成TLS证书的域名 | site.test |
 | ZEROTIER-WEBUI_PASSWD | 动态生成的管理员密码 | password |
 
-> 请注意，为数据传输的安全起见 [`HTTPS_PORT`](#https_port "Go to definition")默认在全网口监听，[`HTTP_PORT`](#http_port "Go to definition") 仅本地 `localhost/127.0.0.1` 监听。
+> 请注意，为数据传输的安全起见 [`HTTPS_PORT`](#https_port "Go to definition") 默认在全网口监听，[`HTTP_PORT`](#http_port "Go to definition") 仅本地 `localhost/127.0.0.1` 监听。
 
 ## <a id="fileserver">文件服务器</a>
 

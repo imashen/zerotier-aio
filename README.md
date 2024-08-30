@@ -83,12 +83,14 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![usage_mkplanet](/doc/bash/usage_mkmoon.png)
 
+```
 Usage: mkmoon [options]
 Options:
   -h, --help            Display this help message
   -4 <IPv4>             Set the IPv4 address for the moon
   -6 <IPv6>             Set the IPv6 address for the moon
   -p <port>             Set the port for the moon (default is 9993)
+```
 
 其中v4/v6地址必须填入一个 每个参数都可以缺省 Port默认为9993
 
@@ -101,12 +103,14 @@ Options:
 
 ![usage_mkplanet](/doc/bash/usage_mkplanet.png)
 
+```
 Usage: mkplanet [options]
 Options:
   -h, --help          Display this help message
   -j2b, --json2bin      Convert from JSON file to planet
   -b2j, --bin2json      Convert from planet to JSON format
   -r, --reset              Reset planet from origin-planet.json
+```
 
 首先运行 `mkplanet -b2j` 或 `mkplanet --bin2json` 将官方自带的planet转义为json文件，方便修改
 在`planet.json`中按照固定结构填入你自己的Planet服务器信息，最多填入四个！！！

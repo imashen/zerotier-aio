@@ -1,11 +1,26 @@
 #!/bin/sh
 
+printHelp() {
+    echo "Usage: mkmoon [options]"
+    echo "Options:"
+    echo "  -h, --help            Display this help message"
+    echo "  -4 <IPv4>             Set the IPv4 address for the moon"
+    echo "  -6 <IPv6>             Set the IPv6 address for the moon"
+    echo "  -p <port>             Set the port for the moon (default is 9993)"
+}
+
+# Check if no arguments are provided
+if [ $# -eq 0 ]; then
+    printHelp
+    exit 0
+fi
+
 cd /var/lib/zerotier-one
 # Default ZeroTier moon port
 moon_port=9993
 
 # Parse arguments
-while getopts "4:6:p:" arg; do
+while getopts "4:6:p:h-" arg; do
     case $arg in
         4)
             ipv4_address="$OPTARG"
@@ -19,8 +34,13 @@ while getopts "4:6:p:" arg; do
             moon_port="$OPTARG"
             echo "Moon port: $moon_port"
             ;;
+        h|-)
+            printHelp
+            exit 0
+            ;;
         ?)
             echo "Unknown argument"
+            printHelp
             exit 1
             ;;
     esac

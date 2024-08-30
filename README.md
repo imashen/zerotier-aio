@@ -5,7 +5,6 @@
 
 # Zerotier All in One
 
-[![Stargazers over time](https://starchart.cc/imashen/zerotier-aio.svg?variant=adaptive)](https://starchart.cc/imashen/zerotier-aio)
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
 ![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
 ![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)

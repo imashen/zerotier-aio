@@ -24,6 +24,8 @@
 [`文件服務器`](#fileserver "Go to definition")
 [`搭建Moon/Planet服務器`](#mkmoon "Go to definition")
 
+****
+
 ## <a id="usage">簡易使用</a>
 
 ```
@@ -49,6 +51,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-logs](/doc/bash/files-logs.png)
 
+****
+
 ## <a id="env">环境变量</a>
 
 ### 必需环境变量
@@ -71,10 +75,13 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 > 請注意，爲數據傳輸的安全起見 [`HTTPS_PORT`](#https_port "Go to definition") 默認在全網口監聽，[`HTTP_PORT`](#http_port "Go to definition") 僅本地 `localhost/127.0.0.1` 監聽。
 
+****
+
 ## <a id="fileserver">文件服務器</a>
 
 此鏡像在端口 [`3180`](#usage "Go to definition") 上開放了一個HTTP服務器，因此您可以在 `/myfs/` 中保存文件以進行服務。例如，您可以使用此功能構建自己的根服務器並分發行星文件。
 
+****
 
 ## Moon/Planet便捷部署
 
@@ -84,6 +91,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 執行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition") 查看幫助
 
+****
 
 ### <a id="mkmoon">1.Moon服務器搭建|mkmoon</a>
 輸入指令`mkmoon`獲取幫助信息
@@ -103,6 +111,8 @@ Options:
 
 成功運行會得到下述效果:
 ![usage_mkmoon_out](/doc/bash/usage_mkmoon_out.png)
+
+****
 
 ### <a id="mkplanet">2.Planet服務器搭建|mkplanet</a>
 輸入指令`mkplanet`獲取幫助信息

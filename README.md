@@ -4,7 +4,6 @@
 - EN [English](doc/README_EN.md)
 
 
-
 # Zerotier All in One
 
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-server)
@@ -79,8 +78,29 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 执行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition")查看帮助
 
 
-### <a id="mkmoon">1.mkmoon</a>
+### <a id="mkmoon">1.Moon服务器搭建|mkmoon</a>
+输入指令`mkmoon`获取帮助信息
+
+![usage_mkplanet](/doc/bash/usage_mkmoon.png)
+
+Usage: mkmoon [options]
+Options:
+  -h, --help            Display this help message
+  -4 <IPv4>             Set the IPv4 address for the moon
+  -6 <IPv6>             Set the IPv6 address for the moon
+  -p <port>             Set the port for the moon (default is 9993)
+
+其中v4/v6地址必须填入一个 每个参数都可以缺省 Port默认为9993
+
+成功运行会得到下述效果:
+![usage_mkplanet](/doc/bash/usage_mkmoon_out.png)
+
+
+### <a id="mkplanet">2.Planet服务器搭建|mkplanet</a>
+输入指令`mkplanet`获取帮助信息
+
 ![usage_mkplanet](/doc/bash/usage_mkplanet.png)
+
 Usage: mkplanet [options]
 Options:
   -h, --help          Display this help message
@@ -88,4 +108,11 @@ Options:
   -b2j, --bin2json      Convert from planet to JSON format
   -r, --reset              Reset planet from origin-planet.json
 
-### <a id="mkplanet">2.mkplanet</a>
+首先运行 `mkplanet -b2j` 或 `mkplanet --bin2json` 将官方自带的planet转义为json文件，方便修改
+在`planet.json`中按照固定结构填入你自己的Planet服务器信息，最多填入四个！！！
+
+![usage_mkplanet](/doc/bash/planet_json.png)
+
+配置完成后再次运行 `mkplanet -j2b` 或 `mkplanet --json2bin` 重新将json文件打包为planet
+此时的planet文件分发到各个设备中，即可实现自建Moon
+为方便分发，详见[`文件服务器`](#fileserver "Go to definition")

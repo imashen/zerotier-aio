@@ -5,9 +5,9 @@
 
 # Zerotier All in One
 
-![GitHub License](https://img.shields.io/github/license/imashen/zerotier-server)
-![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-server)
-![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-server.svg)
+![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
+![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
+![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)
 
 快速导航：
 
@@ -22,10 +22,10 @@
 docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v zerotier-one:/var/lib/zerotier-one \
     -v zerotier-webui:/opt/imashen/zerotier-webui/etc \
-    -v zerotier-logs:/var/log/zerotier-server \
+    -v zerotier-logs:/var/log/zerotier-aio \
     --env-file ./denv \
-    --name zerotier-server \
-    imashen/zerotier-server
+    --name zerotier-aio \
+    imashen/zerotier-aio
 ```
 > 除此之外，您可以将数据卷改为本地目录挂载，引入环境变量的方式也可以改为-e引入。
 
@@ -37,7 +37,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-webui](/doc/bash/files-webui.png)
 
-`/var/log/zerotier-server`存放日志文件
+`/var/log/zerotier-aio`存放日志文件
 
 ![files-logs](/doc/bash/files-logs.png)
 
@@ -70,7 +70,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ## Moon/Planet便捷部署
 
-您可以使用 `docker exec -it zerotier-server /bin/bash` 进入容器
+您可以使用 `docker exec -it zerotier-aio /bin/bash` 进入容器
 
 ![exec_container](/doc/bash/exec_container.png)
 

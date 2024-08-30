@@ -5,9 +5,9 @@
 
 # Zerotier All in One
 
-![GitHub License](https://img.shields.io/github/license/imashen/zerotier-server)
-![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-server)
-![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-server.svg)
+![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
+![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
+![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)
 
 Quick Navigation:
 
@@ -22,10 +22,10 @@ Quick Navigation:
 docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v zerotier-one:/var/lib/zerotier-one \
     -v zerotier-webui:/opt/imashen/zerotier-webui/etc \
-    -v zerotier-logs:/var/log/zerotier-server \
+    -v zerotier-logs:/var/log/zerotier-aio \
     --env-file ./denv \
-    --name zerotier-server \
-    imashen/zerotier-server
+    --name zerotier-aio \
+    imashen/zerotier-aio
 ```
 > Additionally, you can mount the data volumes to local directories and pass environment variables using the `-e` option.
 
@@ -37,7 +37,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-webui](/doc/bash/files-webui.png)
 
-`/var/log/zerotier-server` stores the log files.
+`/var/log/zerotier-aio` stores the log files.
 
 ![files-logs](/doc/bash/files-logs.png)
 
@@ -69,7 +69,7 @@ This image opens an HTTP server on port [`3180`](#usage "Go to definition"), all
 
 ## Moon/Planet Easy Deployment
 
-You can enter the container using `docker exec -it zerotier-server /bin/bash`.
+You can enter the container using `docker exec -it zerotier-aio /bin/bash`.
 
 ![exec_container](/doc/bash/exec_container.png)
 

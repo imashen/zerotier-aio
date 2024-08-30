@@ -75,7 +75,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![exec_container](/doc/bash/exec_container.png)
 
-执行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition")查看帮助
+执行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition") 查看帮助
 
 
 ### <a id="mkmoon">1.Moon服务器搭建|mkmoon</a>

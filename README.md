@@ -37,7 +37,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 `/opt/imashen/zerotier-webui/etc`是文件服务器并存放有Web面板的证书
 
-![files-zt1](/doc/bash/files-zt1.png)
+![files-webui](/doc/bash/files-webui.png)
 
 `/var/log/zerotier-server`存放日志文件
 

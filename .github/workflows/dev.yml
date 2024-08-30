@@ -39,9 +39,9 @@ jobs:
         context: .
         load: true
         tags: |
-          imashen/zerotier-server:dev
+          imashen/zerotier-aio:dev
         platforms: linux/amd64
 
     - name: Push Docker image (amd64)
       run: |
-        docker push imashen/zerotier-server:dev
+        docker push imashen/zerotier-aio:dev

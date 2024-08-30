@@ -23,6 +23,8 @@ Quick Navigation:
 [`File Server`](#fileserver "Go to definition")
 [`Setup Moon/Planet Server`](#mkmoon "Go to definition")
 
+****
+
 ## <a id="usage">Simple Usage</a>
 
 ```
@@ -48,6 +50,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-logs](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/files-logs.png)
 
+****
+
 ## <a id="env">Environment Variables</a>
 
 ### Required Environment Variables
@@ -70,9 +74,13 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 > Please note that for security, [`HTTPS_PORT`](#https_port "Go to definition") listens on all network interfaces by default, while [`HTTP_PORT`](#http_port "Go to definition") listens only on `localhost/127.0.0.1`.
 
+****
+
 ## <a id="fileserver">File Server</a>
 
 This image opens an HTTP server on port [`3180`](#usage "Go to definition"), allowing you to serve files stored in `/myfs/`. For example, you can use this to build your own root server and distribute planet files.
+
+****
 
 ## Moon/Planet Easy Deployment
 
@@ -81,6 +89,8 @@ You can enter the container using `docker exec -it zerotier-aio /bin/bash`.
 ![exec_container](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/exec_container.png)
 
 Run [`mkmoon`](#mkmoon "Go to definition") or [`mkplanet`](#mkplanet "Go to definition") to view help.
+
+****
 
 ### <a id="mkmoon">1. Setup Moon Server | mkmoon</a>
 Enter the command `mkmoon` to get help information.
@@ -100,6 +110,8 @@ You must provide either an IPv4 or IPv6 address. Each parameter can be omitted. 
 
 The following is an example of a successful operation:
 ![usage_mkmoon_out](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkmoon_out.png)
+
+****
 
 ### <a id="mkplanet">2. Setup Planet Server | mkplanet</a>
 Enter the command `mkplanet` to get help information.

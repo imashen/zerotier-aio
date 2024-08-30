@@ -109,6 +109,7 @@ Options:
 You must provide either an IPv4 or IPv6 address. Each parameter can be omitted. The default port is 9993.
 
 The following is an example of a successful operation:
+
 ![usage_mkmoon_out](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/usage_mkmoon_out.png)
 
 ****

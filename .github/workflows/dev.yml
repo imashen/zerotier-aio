@@ -36,7 +36,7 @@ jobs:
     - name: Build Docker image (amd64)
       uses: docker/build-push-action@v6
       with:
-        context: .
+        context: ./Dockerfile-alpine
         load: true
         tags: |
           imashen/zerotier-aio:dev

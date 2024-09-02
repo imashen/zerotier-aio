@@ -1,5 +1,5 @@
 # MAIN BUILDER
-FROM debian:bookworm-slim AS builder
+FROM debian:trixie-slim AS builder
 ENV NODEJS_MAJOR=20
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -28,7 +28,7 @@ RUN cd attic/world && \
     ./build.sh
 
 # BUILD GO UTILS
-FROM golang:1.22-bookworm AS utilsbuilder
+FROM golang:1.23-bookworm AS utilsbuilder
 WORKDIR /buildsrc
 COPY plugins/argon2g /buildsrc/argon2g
 COPY plugins/fileserv /buildsrc/fileserv
@@ -52,7 +52,7 @@ RUN mkdir -p binaries && \
 
 
 # START RUNNER
-FROM debian:bookworm-slim AS runner
+FROM debian:trixie-slim AS runner
 RUN apt update -y && \
     apt install -y --no-install-recommends \
     curl gnupg2 ca-certificates unzip supervisor net-tools procps && \

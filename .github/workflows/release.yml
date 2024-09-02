@@ -17,12 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Read version from RELEASE file
-      id: get_version
-      run: echo "VERSION=$(cat RELEASE)" >> $GITHUB_ENV
-      with:
-        context: .
-        
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:
@@ -31,7 +25,7 @@ jobs:
 
     - name: Create and push multi-arch manifest
       run: |
-        docker manifest create imashen/zerotier-aio:release-${{ env.VERSION }} \
+        docker manifest create imashen/zerotier-aio:release-1.14.0 \
           imashen/zerotier-aio:amd64 \
           imashen/zerotier-aio:arm64
-        docker manifest push --purge imashen/zerotier-aio:release-${{ env.VERSION }}
+        docker manifest push --purge imashen/zerotier-aio:release-1.14.0

@@ -37,12 +37,11 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./Dockerfile-alpine
         load: true
         tags: |
           imashen/zerotier-aio:dev
         platforms: linux/amd64
-        
+
     - name: Push Docker image (amd64)
       run: |
         docker push imashen/zerotier-aio:dev

@@ -1,5 +1,5 @@
 # MAIN BUILDER
-FROM debian:trixie-slim AS builder
+FROM debian:bookworm-slim AS builder
 ENV NODEJS_MAJOR=20
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -52,7 +52,7 @@ RUN mkdir -p binaries && \
 
 
 # START RUNNER
-FROM debian:trixie-slim AS runner
+FROM debian:bookworm-slim AS runner
 RUN apt update -y && \
     apt install -y --no-install-recommends \
     curl gnupg2 ca-certificates unzip supervisor net-tools procps && \

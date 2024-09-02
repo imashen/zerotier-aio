@@ -12,7 +12,8 @@ if [ ! -f /var/lib/zerotier-one/identity.secret ] ; then
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-cli
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-idtool
     ln -sf /usr/sbin/zerotier-one /var/lib/zerotier-one/zerotier-one
-    chown zerotier-one:zerotier-one /var/lib/zerotier-one    # zerotier-one user home
+    chown -R zerotier-one:zerotier-one /var/lib/zerotier-one    # zerotier-one user home
+    chown -R zerotier-one:zerotier-one /var/log/zerotier-server 
     #chown -R zerotier-one:zerotier-one /var/lib/zerotier-one  # zerotier-one will change this at runtime. 
 else
     echo "Zerotier-One Configuration is initialized."

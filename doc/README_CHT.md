@@ -52,6 +52,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     imashen/zerotier-aio
 ```
 
+### 文件介紹
+
 `/var/lib/zerotier-one`用於存放zerotier默認的運行時和配置文件
 
 ![files-zt1](/doc/bash/files-zt1.png)

@@ -51,6 +51,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     imashen/zerotier-aio
 ```
 
+### Files Func
+
 `/var/lib/zerotier-one` is used to store Zerotier's default runtime and configuration files.
 
 ![files-zt1](https://raw.githubusercontent.com/imashen/zerotier-aio/main/doc/bash/files-zt1.png)

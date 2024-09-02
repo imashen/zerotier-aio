@@ -20,7 +20,9 @@ jobs:
     - name: Read version from RELEASE file
       id: get_version
       run: echo "VERSION=$(cat RELEASE)" >> $GITHUB_ENV
-      
+      with:
+        context: .
+        
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:

@@ -1,5 +1,5 @@
 # MAIN BUILDER
-FROM debian:bullseye-slim AS builder
+FROM debian:bookworm-slim AS builder
 ENV NODEJS_MAJOR=20
 
 ARG DEBIAN_FRONTEND=noninteractive

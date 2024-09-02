@@ -36,7 +36,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     --name zerotier-aio \
     imashen/zerotier-aio
 ```
-> Additionally, you can mount the data volumes to local directories and pass environment variables using the `-e` option.
+> Additionally, you can change the data volume to be mounted as a local directory, and the method of introducing environment variables can also be changed to use the `-e` option. For the contents of the `--env-file` environment variable file, please refer to the `denv` in the repository.
 
 `/var/lib/zerotier-one` is used to store Zerotier's default runtime and configuration files.
 
@@ -69,8 +69,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | <a id="https_port">HTTPS_PORT</a> | HTTPS Port | 3443 |
 | <a id="http_port">HTTP_PORT</a> | HTTP Port | 3000 |
 | HTTP_ALL_INTERFACES | Listen on all interfaces, applicable only to HTTP, suitable for reverse proxy | No default value |
-| MYDOMAIN | Domain name for dynamically generated TLS certificates | site.test |
-| ZEROTIER-WEBUI_PASSWD | Password for the dynamically generated admin | password |
+| MYDOMAIN | Domain name for dynamically generated TLS certificates | site.test(can also be the local IP) |
+| ZEROTIER-WEBUI_PASSWD | Password for the dynamically generated admin | password(in the new version of the image, it may be dynamically generated; see the logs for details) |
 
 > Please note that for security, [`HTTPS_PORT`](#https_port "Go to definition") listens on all network interfaces by default, while [`HTTP_PORT`](#http_port "Go to definition") listens only on `localhost/127.0.0.1`.
 

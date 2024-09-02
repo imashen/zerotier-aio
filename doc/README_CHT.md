@@ -37,7 +37,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     --name zerotier-aio \
     imashen/zerotier-aio
 ```
-> 除此之外，您可以將數據卷改爲本地目錄掛載，引入環境變量的方式也可以改爲-e引入。
+> 除此之外，您可以將數據卷改為本地目錄掛載，引入環境變量的方式也可以改為-e引入 --env-file環境變量文件內容詳見倉庫中的denv
 
 `/var/lib/zerotier-one`用於存放zerotier默認的運行時和配置文件
 
@@ -70,8 +70,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | <a id="https_port">HTTPS_PORT</a> | HTTPS端口 | 3443 |
 | <a id="http_port">HTTP_PORT</a> | HTTP端口 | 3000 |
 | HTTP_ALL_INTERFACES | 監聽所有接口，僅適用於HTTP，適用於反向代理 | 無默認值 |
-| MYDOMAIN | 動態生成TLS證書的域名 | site.test |
-| ZEROTIER-WEBUI_PASSWD | 動態生成的管理員密碼 | password |
+| MYDOMAIN | 動態生成TLS證書的域名 | site.test(亦可是本機IP) |
+| ZEROTIER-WEBUI_PASSWD | 動態生成的管理員密碼 | password(新版鏡像可能會動態生成，詳見日誌) |
 
 > 請注意，爲數據傳輸的安全起見 [`HTTPS_PORT`](#https_port "Go to definition") 默認在全網口監聽，[`HTTP_PORT`](#http_port "Go to definition") 僅本地 `localhost/127.0.0.1` 監聽。
 

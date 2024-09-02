@@ -23,6 +23,8 @@
 [`文件服务器`](#fileserver "Go to definition")
 [`搭建Moon/Planet服务器`](#mkmoon "Go to definition")
 
+****
+
 ## <a id="usage">简易使用</a>
 
 ```
@@ -34,7 +36,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     --name zerotier-aio \
     imashen/zerotier-aio
 ```
-> 除此之外，您可以将数据卷改为本地目录挂载，引入环境变量的方式也可以改为-e引入。
+
+> 除此之外，您可以将数据卷改为本地目录挂载，引入环境变量的方式也可以改为-e引入 --env-file环境变量文件内容详见仓库中的denv
 
 `/var/lib/zerotier-one`用于存放zerotier默认的运行时和配置文件
 
@@ -47,6 +50,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 `/var/log/zerotier-aio`存放日志文件
 
 ![files-logs](/doc/bash/files-logs.png)
+
+****
 
 ## <a id="env">环境变量</a>
 
@@ -65,15 +70,18 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | <a id="https_port">HTTPS_PORT</a> | HTTPS端口 | 3443 |
 | <a id="http_port">HTTP_PORT</a> | HTTP端口 | 3000 |
 | HTTP_ALL_INTERFACES | 监听所有接口，仅适用于HTTP，适用于反向代理 | 无默认值 |
-| MYDOMAIN | 动态生成TLS证书的域名 | site.test |
-| ZEROTIER-WEBUI_PASSWD | 动态生成的管理员密码 | password |
+| MYDOMAIN | 动态生成TLS证书的域名 | site.test(亦可是本机IP) |
+| ZEROTIER-WEBUI_PASSWD | 动态生成的管理员密码 | password(新版镜像可能会动态生成，详见日志) |
 
 > 请注意，为数据传输的安全起见 [`HTTPS_PORT`](#https_port "Go to definition") 默认在全网口监听，[`HTTP_PORT`](#http_port "Go to definition") 仅本地 `localhost/127.0.0.1` 监听。
+
+****
 
 ## <a id="fileserver">文件服务器</a>
 
 此镜像在端口 [`3180`](#usage "Go to definition") 上开放了一个HTTP服务器，因此您可以在 `/myfs/` 中保存文件以进行服务。例如，您可以使用此功能构建自己的根服务器并分发行星文件。
 
+****
 
 ## Moon/Planet便捷部署
 
@@ -83,6 +91,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 执行 [`mkmoon`](#mkmoon "Go to definition") 或 [`mkplanet`](#mkplanet "Go to definition") 查看帮助
 
+****
 
 ### <a id="mkmoon">1.Moon服务器搭建|mkmoon</a>
 输入指令`mkmoon`获取帮助信息
@@ -104,6 +113,7 @@ Options:
 
 ![usage_mkmoon_out](/doc/bash/usage_mkmoon_out.png)
 
+****
 
 ### <a id="mkplanet">2.Planet服务器搭建|mkplanet</a>
 输入指令`mkplanet`获取帮助信息

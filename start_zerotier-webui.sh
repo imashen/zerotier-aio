@@ -16,7 +16,7 @@ if [ -z $MYADDR ]; then
 fi
 
 MYDOMAIN=${MYDOMAIN:-zerotier-webui.docker.test}   # Used for minica
-ZEROTIER_WEBUI_PASSWD=${ZEROTIER_WEBUI_PASSWD:-password}   # Used for argon2g
+ZEROTIER_WEBUI_PASSWD=${ZEROTIER_WEBUI_PASSWD:-password123}   # Used for argon2g
 MYADDR=${MYADDR}
 HTTP_ALL_INTERFACES=${HTTP_ALL_INTERFACES}
 HTTP_PORT=${HTTP_PORT:-3000}

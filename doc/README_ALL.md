@@ -45,7 +45,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v /opt/zerotier/zerotier-webui:/www/zerotier-webui/etc \
     -v /opt/zerotier/zerotier-logs:/logs \
     -e NODE_ENV=production \
-    -e ZEROTIER-WEBUI_PASSWD=password \
+    -e ZEROTIER-WEBUI_PASSWD=password123 \
     -e MYDOMAIN=site.test \
     --name zerotier-aio \
     imashen/zerotier-aio
@@ -85,7 +85,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | <a id="http_port">HTTP_PORT</a> | HTTP Port | 3000 |
 | HTTP_ALL_INTERFACES | Listen on all interfaces, applicable only to HTTP, suitable for reverse proxy | No default value |
 | MYDOMAIN | Domain name for dynamically generated TLS certificates | site.test(can also be the local IP) |
-| ZEROTIER-WEBUI_PASSWD | Password for the dynamically generated admin | password(in the new version of the image, it may be dynamically generated; see the logs for details) |
+| ZEROTIER-WEBUI_PASSWD | Password for the dynamically generated admin | password123(Weak passwords are dynamically generated, as detailed in the logs) |
 
 > Please note that for security, [`HTTPS_PORT`](#https_port "Go to definition") listens on all network interfaces by default, while [`HTTP_PORT`](#http_port "Go to definition") listens only on `localhost/127.0.0.1`.
 

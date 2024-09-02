@@ -45,7 +45,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v /opt/zerotier/zerotier-webui:/www/zerotier-webui/etc \
     -v /opt/zerotier/zerotier-logs:/logs \
     -e NODE_ENV=production \
-    -e ZEROTIER-WEBUI_PASSWD=password \
+    -e ZEROTIER-WEBUI_PASSWD=password123 \
     -e MYDOMAIN=site.test \
     --name zerotier-aio \
     imashen/zerotier-aio
@@ -85,7 +85,7 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 | <a id="http_port">HTTP_PORT</a> | HTTP端口 | 3000 |
 | HTTP_ALL_INTERFACES | 监听所有接口，仅适用于HTTP，适用于反向代理 | 无默认值 |
 | MYDOMAIN | 动态生成TLS证书的域名 | site.test(亦可是本机IP) |
-| ZEROTIER-WEBUI_PASSWD | 动态生成的管理员密码 | password(新版镜像可能会动态生成，详见日志) |
+| ZEROTIER-WEBUI_PASSWD | 动态生成的管理员密码 | password123(设定为弱密码则会重新动态生成，详见日志) |
 
 > 请注意，为数据传输的安全起见 [`HTTPS_PORT`](#https_port "Go to definition") 默认在全网口监听，[`HTTP_PORT`](#http_port "Go to definition") 仅本地 `localhost/127.0.0.1` 监听。
 

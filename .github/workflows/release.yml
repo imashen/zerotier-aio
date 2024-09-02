@@ -13,7 +13,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   create-manifest:
     needs: [build-and-push-amd64, build-and-push-arm64]
     runs-on: ubuntu-latest

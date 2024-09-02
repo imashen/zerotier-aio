@@ -1,0 +1,107 @@
+name: Build and Push Multi-Arch Released Docker Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'RELEASE'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push-amd64:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Read version from RELEASE file
+      id: get_version
+      run: echo "VERSION=$(cat RELEASE)" >> $GITHUB_ENV
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: all
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image (amd64)
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        load: true
+        tags: |
+          imashen/zerotier-aio:release-${{ env.VERSION }}-amd64
+        platforms: linux/amd64
+
+    - name: Push Docker image (amd64)
+      run: |
+        docker push imashen/zerotier-aio:release-${{ env.VERSION }}-amd64
+
+  build-and-push-arm64:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Read version from RELEASE file
+      id: get_version
+      run: echo "VERSION=$(cat RELEASE)" >> $GITHUB_ENV
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: all
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image (arm64)
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        load: true
+        tags: |
+          imashen/zerotier-aio:release-${{ env.VERSION }}-arm64
+        platforms: linux/arm64
+
+    - name: Push Docker image (arm64)
+      run: |
+        docker push imashen/zerotier-aio:release-${{ env.VERSION }}-arm64
+
+  create-manifest:
+    needs: [build-and-push-amd64, build-and-push-arm64]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Create and push multi-arch manifest
+      run: |
+        docker manifest create imashen/zerotier-aio:release-${{ env.VERSION }} \
+          imashen/zerotier-aio:release-${{ env.VERSION }}-amd64 \
+          imashen/zerotier-aio:release-${{ env.VERSION }}-arm64
+        docker manifest push --purge imashen/zerotier-aio:release-${{ env.VERSION }}

@@ -30,8 +30,8 @@ Quick Navigation:
 ```
 docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v zerotier-one:/var/lib/zerotier-one \
-    -v zerotier-webui:/opt/imashen/zerotier-webui/etc \
-    -v zerotier-logs:/var/log/zerotier-aio \
+    -v zerotier-webui:/www/zerotier-webui/etc \
+    -v zerotier-logs:/logs \
     --env-file ./denv \
     --name zerotier-aio \
     imashen/zerotier-aio
@@ -42,8 +42,8 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 ```
 docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     -v /opt/zerotier/zerotier-one:/var/lib/zerotier-one \
-    -v /opt/zerotier/zerotier-webui:/opt/imashen/zerotier-webui/etc \
-    -v /opt/zerotier/zerotier-logs:/var/log/zerotier-aio \
+    -v /opt/zerotier/zerotier-webui:/www/zerotier-webui/etc \
+    -v /opt/zerotier/zerotier-logs:/logs \
     -e NODE_ENV=production \
     -e ZEROTIER-WEBUI_PASSWD=password \
     -e MYDOMAIN=site.test \
@@ -57,11 +57,11 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 ![files-zt1](/doc/bash/files-zt1.png)
 
-`/opt/imashen/zerotier-webui/etc` is the file server and contains the certificates for the Web UI.
+`/www/zerotier-webui/etc` is the file server and contains the certificates for the Web UI.
 
 ![files-webui](/doc/bash/files-webui.png)
 
-`/var/log/zerotier-aio` stores the log files.
+`/logs` stores the log files.
 
 ![files-logs](/doc/bash/files-logs.png)
 

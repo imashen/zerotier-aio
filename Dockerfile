@@ -62,7 +62,7 @@ RUN apt update -y && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 
-WORKDIR /opt/imashen/zerotier-webui
+WORKDIR /www/zerotier-webui
 COPY --from=builder /build/artifact.zip .
 RUN unzip ./artifact.zip && rm -f ./artifact.zip
 
@@ -82,13 +82,13 @@ COPY supervisord.conf /etc/supervisord.conf
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh && \
-    mkdir -p /var/log/zerotier-server && \
-    chown -R zerotier-one:zerotier-one /var/log/zerotier-server
+    mkdir -p /logs && \
+    chown -R zerotier-one:zerotier-one /logs
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
 
 
-VOLUME ["/opt/imashen/zerotier-webui/etc", "/var/lib/zerotier-one", "/var/log/zerotier-server/"]
+VOLUME ["/www/zerotier-webui/etc", "/var/lib/zerotier-one", "/logs"]
 
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

@@ -36,7 +36,20 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
     --name zerotier-aio \
     imashen/zerotier-aio
 ```
+
 > Additionally, you can change the data volume to be mounted as a local directory, and the method of introducing environment variables can also be changed to use the `-e` option. For the contents of the `--env-file` environment variable file, please refer to the `denv` in the repository.
+
+```
+docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
+    -v /opt/zerotier/zerotier-one:/var/lib/zerotier-one \
+    -v /opt/zerotier/zerotier-webui:/opt/imashen/zerotier-webui/etc \
+    -v /opt/zerotier/zerotier-logs:/var/log/zerotier-aio \
+    -e NODE_ENV=production \
+    -e ZEROTIER-WEBUI_PASSWD=password \
+    -e MYDOMAIN=site.test \
+    --name zerotier-aio \
+    imashen/zerotier-aio
+```
 
 `/var/lib/zerotier-one` is used to store Zerotier's default runtime and configuration files.
 

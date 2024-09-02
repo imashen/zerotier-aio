@@ -39,6 +39,18 @@ docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
 
 > 除此之外，您可以将数据卷改为本地目录挂载，引入环境变量的方式也可以改为-e引入 --env-file环境变量文件内容详见仓库中的denv
 
+```
+docker run -d -p 9993:9993/udp -p 3443:3443 -p 3180:3180 \
+    -v /opt/zerotier/zerotier-one:/var/lib/zerotier-one \
+    -v /opt/zerotier/zerotier-webui:/opt/imashen/zerotier-webui/etc \
+    -v /opt/zerotier/zerotier-logs:/var/log/zerotier-aio \
+    -e NODE_ENV=production \
+    -e ZEROTIER-WEBUI_PASSWD=password \
+    -e MYDOMAIN=site.test \
+    --name zerotier-aio \
+    imashen/zerotier-aio
+```
+
 `/var/lib/zerotier-one`用于存放zerotier默认的运行时和配置文件
 
 ![files-zt1](/doc/bash/files-zt1.png)

@@ -82,6 +82,7 @@ COPY supervisord.conf /etc/supervisord.conf
 
 RUN chmod 0755 /usr/local/bin/* && \
     chmod 0755 /start_*.sh && \
+    mkdir -p /var/log/zerotier-server && \
     chown -R zerotier-one:zerotier-one /var/log/zerotier-server
 
 EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp

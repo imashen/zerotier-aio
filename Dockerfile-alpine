@@ -34,6 +34,11 @@ FROM golang:1.23-alpine AS utilsbuilder
 WORKDIR /buildsrc
 COPY plugins/argon2g /buildsrc/argon2g
 COPY plugins/fileserv /buildsrc/fileserv
+RUN apk add --no-cache \
+    git \
+    make \
+    g++ \
+    bash
 RUN mkdir -p binaries && \
     cd argon2g && \
     go mod download && \

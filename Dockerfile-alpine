@@ -61,6 +61,7 @@ RUN apk add --no-cache \
     supervisor \
     net-tools \
     procps \
+    bash \
     && addgroup -g 2222 zerotier-one \
     && adduser -u 2222 -G zerotier-one -s /bin/sh -D zerotier-one \
     && curl -sL https://install.zerotier.com | sh

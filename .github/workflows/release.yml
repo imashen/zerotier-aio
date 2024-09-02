@@ -23,7 +23,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Create and push multi-arch manifest
+    - name: Create and push release manifest
       run: |
         docker manifest create imashen/zerotier-aio:release-1.14.0 \
           imashen/zerotier-aio:amd64 \

@@ -85,10 +85,8 @@ RUN chmod 0755 /usr/local/bin/* && \
     mkdir -p /logs && \
     chown -R zerotier-one:zerotier-one /logs
 
-EXPOSE 3000/tcp 3180/tcp 8000/tcp 3443/tcp 9993/udp
 
-
-
-VOLUME ["/www/zerotier-webui/etc", "/var/lib/zerotier-one", "/logs"]
+# EXPOSE 3000/tcp 3180/tcp 3443/tcp 9993/udp
+# VOLUME ["/www/zerotier-webui/etc", "/var/lib/zerotier-one", "/logs"]
 
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

@@ -3,8 +3,11 @@
 - CHS [简体中文](doc/README_CHS.md)
 - CHT [繁體中文](doc/README_CHT.md)
 
+# 鸣谢
+[`key-networks/ztncui`](https://github.com/key-networks/ztncui "Open Link")  
+
 # Zerotier All in One
-[`鸣谢ztncui项目`](https://github.com/key-networks/ztncui "Open Link")
+
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
 ![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
 ![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)

@@ -4,7 +4,7 @@
 - CHT [繁體中文](doc/README_CHT.md)
 
 # Zerotier All in One
-
+[`鸣谢ztncui项目`](https://github.com/key-networks/ztncui "Open Link")
 ![GitHub License](https://img.shields.io/github/license/imashen/zerotier-aio)
 ![Docker Automated build](https://img.shields.io/docker/automated/imashen/zerotier-aio)
 ![Current Release](https://img.shields.io/github/v/release/imashen/zerotier-aio.svg)
@@ -162,4 +162,3 @@ Options:
 
 ![usage_mkplanet_reset](/doc/bash/usage_mkplanet_reset.png)
 
-[`鸣谢ztncui项目`](https://github.com/key-networks/ztncui "Open Link")

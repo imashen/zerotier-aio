@@ -3,6 +3,8 @@
 - CHS [简体中文](doc/README_CHS.md)
 - CHT [繁體中文](doc/README_CHT.md)
 
+# 鳴謝
+[`key-networks/ztncui`](https://github.com/key-networks/ztncui "Open Link")  
 
 # Zerotier All in One
 

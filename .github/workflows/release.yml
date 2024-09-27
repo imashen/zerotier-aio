@@ -25,7 +25,7 @@ jobs:
 
     - name: Create and push release manifest
       run: |
-        docker manifest create imashen/zerotier-aio:release-1.14.0 \
+        docker manifest create imashen/zerotier-aio:release-1.14.1 \
           imashen/zerotier-aio:amd64 \
           imashen/zerotier-aio:arm64
-        docker manifest push --purge imashen/zerotier-aio:release-1.14.0
+        docker manifest push --purge imashen/zerotier-aio:release-1.14.1
